@@ -24,7 +24,6 @@ export const Dialog = () => {
             <button autoFocus onClick={closeModal}>Close</button>
             <p>This modal dialog has a groovy backdrop!</p>
         </dialog>
-        <button onClick={openModal}>Show the dialog</button>
     </>)
 }
 

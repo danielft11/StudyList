@@ -1,34 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ChecklistsWrapper } from "./components/ChecklistsWrapper"
+import { Container } from "./components/Container"
+import { FabButton } from "./components/FabButton"
+import { Footer } from "./components/Footer"
+import { Header } from "./components/Header"
+import { Heading } from "./components/Heading"
+import { IconPlus, IconSchool } from "./components/icons"
+import { SubHeading } from "./components/SubHeading"
+import { ToDoItem } from "./components/ToDoItem"
+import { ToDoList } from "./components/ToDoList"
+
+const todos = [
+  {
+    id: 1,
+    description: "JSX e componentes",
+    completed: false,
+    createdAt: "2022-10-31"
+  },
+  {
+    id: 2,
+    description: "Props, state e hooks",
+    completed: false,
+    createdAt: "2022-10-31"
+  },
+  {
+    id: 3,
+    description: "Ciclo de vida dos componentes",
+    completed: false,
+    createdAt: "2022-10-31"
+  },
+  {
+    id: 4,
+    description: "Testes unitários com Jest",
+    completed: false,
+    createdAt: "2022-10-31"
+  }
+]
+const completed = [
+  {
+    id: 5,
+    description: "Controle de inputs e formulários controlados",
+    completed: true,
+    createdAt: "2022-10-31"
+  },
+  {
+    id: 6,
+    description: "Rotas dinâmicas",
+    completed: true,
+    createdAt: "2022-10-31"
+  }
+]
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <main>
+      <Container>
+        <Header>
+          <Heading>
+            <IconSchool /> Plano de estudos
+          </Heading>
+        </Header>
+        <ChecklistsWrapper>
+          <SubHeading>Para estudar</SubHeading>
+          <ToDoList>
+            {todos.map(function (t) {
+              return <ToDoItem key={t.id} item={t} />
+            })}
+          </ToDoList>
+          <SubHeading>Concluído</SubHeading>
+          <ToDoList>
+            {completed.map(function (t) {
+              return <ToDoItem key={t.id} item={t} />
+            })}
+          </ToDoList>
+          <Footer>
+            <FabButton>
+              <IconPlus />
+            </FabButton>
+          </Footer>
+        </ChecklistsWrapper>
+      </Container>
+    </main>
   )
 }
 

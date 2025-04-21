@@ -82,7 +82,7 @@ function App() {
           </Footer>
         </ChecklistsWrapper>
       </Container>
-      <Dialog isOpen={showDialog}/>
+      <Dialog isOpen={showDialog} onClose={() => setShowDialog(false)}/>
     </main>
   )
 }

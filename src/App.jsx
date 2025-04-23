@@ -82,7 +82,9 @@ function App() {
           </Footer>
         </ChecklistsWrapper>
       </Container>
-      <Dialog isOpen={showDialog} onClose={() => setShowDialog(false)}/>
+      <Dialog isOpen={showDialog} onClose={() => setShowDialog(false)}>
+        <p>This modal dialog has a groovy backdrop!</p>
+      </Dialog>
     </main>
   )
 }

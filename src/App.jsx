@@ -14,53 +14,23 @@ import TextInput from "./components/TextInput"
 import Button from "./components/Button"
 import FormToDo from "./components/FormToDo"
 
-const todos = [
-  {
-    id: 1,
-    description: "JSX e componentes",
-    completed: false,
-    createdAt: "2022-10-31"
-  },
-  {
-    id: 2,
-    description: "Props, state e hooks",
-    completed: false,
-    createdAt: "2022-10-31"
-  },
-  {
-    id: 3,
-    description: "Ciclo de vida dos componentes",
-    completed: false,
-    createdAt: "2022-10-31"
-  },
-  {
-    id: 4,
-    description: "Testes unitários com Jest",
-    completed: false,
-    createdAt: "2022-10-31"
-  }
-]
-const completed = [
-  {
-    id: 5,
-    description: "Controle de inputs e formulários controlados",
-    completed: true,
-    createdAt: "2022-10-31"
-  },
-  {
-    id: 6,
-    description: "Rotas dinâmicas",
-    completed: true,
-    createdAt: "2022-10-31"
-  }
-]
 
 function App() {
   const [showDialog, setShowDialog] = useState(false)
+  const [todos, setTodos] = useState([])
 
-  const addToDo = () => {
+  const addToDo = (formData) => {
     console.log('precisamos fazer algo!')
     setShowDialog(false)
+    setTodos(oldState => {
+      const newTodo = { 
+        id: oldState.length +1,
+        description: formData.get('description'),
+        createdAt: new Date().toISOString(),
+        completed: false
+      }
+      return [...oldState, newTodo]
+    })
   }
 
   return (
@@ -74,13 +44,13 @@ function App() {
         <ChecklistsWrapper>
           <SubHeading>Para estudar</SubHeading>
           <ToDoList>
-            {todos.map(function (t) {
+            {todos.filter(t => !t.completed).map(function (t) {
               return <ToDoItem key={t.id} item={t} />
             })}
           </ToDoList>
           <SubHeading>Concluído</SubHeading>
           <ToDoList>
-            {completed.map(function (t) {
+            {todos.filter(t => t.completed).map(function (t) {
               return <ToDoItem key={t.id} item={t} />
             })}
           </ToDoList>

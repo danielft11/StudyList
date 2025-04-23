@@ -11,6 +11,7 @@
 
 .dialog .actions {
     text-align: right;
+    margin-bottom: 10px;
 }
 
 .dialog .actions .btn-close {

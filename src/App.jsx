@@ -11,6 +11,8 @@ import { SubHeading } from "./components/SubHeading"
 import { ToDoItem } from "./components/ToDoItem"
 import { ToDoList } from "./components/ToDoList"
 import TextInput from "./components/TextInput"
+import Button from "./components/Button"
+import FormToDo from "./components/FormToDo"
 
 const todos = [
   {
@@ -55,6 +57,12 @@ const completed = [
 
 function App() {
   const [showDialog, setShowDialog] = useState(false)
+
+  const addToDo = () => {
+    console.log('precisamos fazer algo!')
+    setShowDialog(false)
+  }
+
   return (
     <main>
       <Container>
@@ -84,9 +92,7 @@ function App() {
         </ChecklistsWrapper>
       </Container>
       <Dialog isOpen={showDialog} onClose={() => setShowDialog(false)}>
-        <TextInput 
-          placeholder="Digite o item que deseja adicionar"
-        />
+            <FormToDo onSubmit={addToDo}/>
       </Dialog>
     </main>
   )

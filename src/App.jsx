@@ -23,14 +23,24 @@ function App() {
     console.log('precisamos fazer algo!')
     setShowDialog(false)
     setTodos(oldState => {
-      const newTodo = { 
-        id: oldState.length +1,
+      const newTodo = {
+        id: oldState.length + 1,
         description: formData.get('description'),
         createdAt: new Date().toISOString(),
         completed: false
       }
       return [...oldState, newTodo]
     })
+  }
+
+  const toggleItemCompleted = (todo) => {
+    setTodos(oldState =>
+      oldState.map(item =>
+        item.id === todo.id
+          ? { ...item, completed: !item.completed }
+          : item
+      )
+    )
   }
 
   return (
@@ -45,13 +55,21 @@ function App() {
           <SubHeading>Para estudar</SubHeading>
           <ToDoList>
             {todos.filter(t => !t.completed).map(function (t) {
-              return <ToDoItem key={t.id} item={t} />
+              return <ToDoItem
+                key={t.id}
+                item={t}
+                onToggleComplete={() => toggleItemCompleted(t)}
+              />
             })}
           </ToDoList>
           <SubHeading>Concluído</SubHeading>
           <ToDoList>
             {todos.filter(t => t.completed).map(function (t) {
-              return <ToDoItem key={t.id} item={t} />
+              return <ToDoItem
+                key={t.id}
+                item={t}
+                onToggleComplete={() => toggleItemCompleted(t)}
+              />
             })}
           </ToDoList>
           <Footer>
@@ -62,7 +80,7 @@ function App() {
         </ChecklistsWrapper>
       </Container>
       <Dialog isOpen={showDialog} onClose={() => setShowDialog(false)}>
-            <FormToDo onSubmit={addToDo}/>
+        <FormToDo onSubmit={addToDo} />
       </Dialog>
     </main>
   )

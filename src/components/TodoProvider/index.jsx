@@ -4,6 +4,7 @@ import { TodoContext } from "./TodoContext"
 export const TodoProvider = ({ children }) => {
 
     const savedTodos = localStorage.getItem('todos')
+    const [showDialog, setShowDialog] = useState(false)
 
     const [todos, setTodos] = useState(savedTodos ? JSON.parse(savedTodos) : [])
 
@@ -22,6 +23,7 @@ export const TodoProvider = ({ children }) => {
             }
             return [...oldState, newTodo]
         })
+        closeTodoFormModal()
     }
 
     const removeTodo = (todo) => {
@@ -38,8 +40,15 @@ export const TodoProvider = ({ children }) => {
         )
     }
 
+    const openTodoFormModal = () => {
+        setShowDialog(true)
+    }
 
-    return <TodoContext value={{ todos, addToDo, removeTodo, toggleItemCompleted }}>
+    const closeTodoFormModal = () => {
+        setShowDialog(false)
+    }
+
+    return <TodoContext value={{ todos, addToDo, removeTodo, toggleItemCompleted, openTodoFormModal, closeTodoFormModal, isModalOpen: showDialog }}>
         {children}
     </TodoContext>
 }

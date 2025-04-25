@@ -13,6 +13,14 @@ export const Dialog = ({ isOpen, onClose, children }) => {
         }
     }, [isOpen])
 
+    useEffect(() => {
+        const dialog = refDialog.current;
+        dialog.addEventListener('close', onClose);
+        return () => {
+            dialog.removeEventListener('close', onClose);
+        };
+    }, [onClose]);
+
     return (<>
         <dialog ref={refDialog} className='dialog'>
             <div className='actions'>

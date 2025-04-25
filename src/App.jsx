@@ -10,8 +10,6 @@ import { IconPlus, IconSchool } from "./components/icons"
 import { SubHeading } from "./components/SubHeading"
 import { ToDoItem } from "./components/ToDoItem"
 import { ToDoList } from "./components/ToDoList"
-import TextInput from "./components/TextInput"
-import Button from "./components/Button"
 import FormToDo from "./components/FormToDo"
 
 
@@ -31,6 +29,10 @@ function App() {
       }
       return [...oldState, newTodo]
     })
+  }
+
+  const removeTodo = (todo) => {
+    setTodos(oldState => oldState.filter(t => t.id != todo.id))
   }
 
   const toggleItemCompleted = (todo) => {
@@ -59,6 +61,7 @@ function App() {
                 key={t.id}
                 item={t}
                 onToggleComplete={() => toggleItemCompleted(t)}
+                onDelete={() => removeTodo(t)}
               />
             })}
           </ToDoList>
@@ -69,6 +72,7 @@ function App() {
                 key={t.id}
                 item={t}
                 onToggleComplete={() => toggleItemCompleted(t)}
+                onDelete={() => removeTodo(t)}
               />
             })}
           </ToDoList>

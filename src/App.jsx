@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { use, useState } from "react"
 import { ChecklistsWrapper } from "./components/ChecklistsWrapper"
 import { Container } from "./components/Container"
 import Dialog from "./components/Dialog"
@@ -11,38 +11,16 @@ import { SubHeading } from "./components/SubHeading"
 import { ToDoItem } from "./components/ToDoItem"
 import { ToDoList } from "./components/ToDoList"
 import FormToDo from "./components/FormToDo"
+import { TodoContext } from "./components/TodoProvider/TodoContext"
 
 
 function App() {
   const [showDialog, setShowDialog] = useState(false)
-  const [todos, setTodos] = useState([])
+  const { todos, addToDo } = use(TodoContext)
 
-  const addToDo = (formData) => {
-    console.log('precisamos fazer algo!')
+  const handleFormSubmit = (formData) => {
+    addToDo(formData)
     setShowDialog(false)
-    setTodos(oldState => {
-      const newTodo = {
-        id: oldState.length + 1,
-        description: formData.get('description'),
-        createdAt: new Date().toISOString(),
-        completed: false
-      }
-      return [...oldState, newTodo]
-    })
-  }
-
-  const removeTodo = (todo) => {
-    setTodos(oldState => oldState.filter(t => t.id != todo.id))
-  }
-
-  const toggleItemCompleted = (todo) => {
-    setTodos(oldState =>
-      oldState.map(item =>
-        item.id === todo.id
-          ? { ...item, completed: !item.completed }
-          : item
-      )
-    )
   }
 
   return (
@@ -66,8 +44,6 @@ function App() {
               return <ToDoItem
                 key={t.id}
                 item={t}
-                onToggleComplete={() => toggleItemCompleted(t)}
-                onDelete={() => removeTodo(t)}
               />
             })}
           </ToDoList>
@@ -77,8 +53,6 @@ function App() {
               return <ToDoItem
                 key={t.id}
                 item={t}
-                onToggleComplete={() => toggleItemCompleted(t)}
-                onDelete={() => removeTodo(t)}
               />
             })}
           </ToDoList>
@@ -90,7 +64,7 @@ function App() {
         </ChecklistsWrapper>
       </Container>
       <Dialog isOpen={showDialog} onClose={() => setShowDialog(false)}>
-        <FormToDo onSubmit={addToDo} />
+        <FormToDo onSubmit={handleFormSubmit} />
       </Dialog>
     </main>
   )

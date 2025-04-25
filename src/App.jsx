@@ -7,11 +7,9 @@ import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
 import { Heading } from "./components/Heading"
 import { IconPlus, IconSchool } from "./components/icons"
-import { SubHeading } from "./components/SubHeading"
-import { ToDoItem } from "./components/ToDoItem"
-import { ToDoList } from "./components/ToDoList"
 import FormToDo from "./components/FormToDo"
 import { TodoContext } from "./components/TodoProvider/TodoContext"
+import ToDoGroup from "./components/ToDoGroup"
 
 
 function App() {
@@ -32,30 +30,14 @@ function App() {
           </Heading>
         </Header>
         <ChecklistsWrapper>
-          {/* <ToDoGroup
+          <ToDoGroup
             title="Para estudar"
             todos={todos.filter(t => !t.completed)}
-            onToggleComplete={toggleItemCompleted}
-            onDelete={removeTodo}
-          /> */}
-          <SubHeading>Para estudar</SubHeading>
-          <ToDoList>
-            {todos.filter(t => !t.completed).map(function (t) {
-              return <ToDoItem
-                key={t.id}
-                item={t}
-              />
-            })}
-          </ToDoList>
-          <SubHeading>Concluído</SubHeading>
-          <ToDoList>
-            {todos.filter(t => t.completed).map(function (t) {
-              return <ToDoItem
-                key={t.id}
-                item={t}
-              />
-            })}
-          </ToDoList>
+          />
+          <ToDoGroup
+            title="Concluído"
+            todos={todos.filter(t => t.completed)}
+          />
           <Footer>
             <FabButton onClick={() => setShowDialog(!showDialog)}>
               <IconPlus />

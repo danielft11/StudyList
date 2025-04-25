@@ -12,7 +12,7 @@ import { TodoContext } from "./components/TodoProvider/TodoContext"
 import ToDoGroup from "./components/ToDoGroup"
 
 function App() {
-  const { todos, addToDo, openTodoFormModal, closeTodoFormModal, isModalOpen } = use(TodoContext)
+  const { todos, upsertTodo, openTodoFormModal, closeTodoFormModal, isModalOpen } = use(TodoContext)
 
   return (
     <main>
@@ -39,7 +39,7 @@ function App() {
         </ChecklistsWrapper>
       </Container>
       <Dialog isOpen={isModalOpen} onClose={closeTodoFormModal}>
-        <FormToDo onSubmit={addToDo} />
+        <FormToDo onSubmit={upsertTodo} />
       </Dialog>
     </main>
   )

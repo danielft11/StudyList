@@ -14,17 +14,26 @@ export const TodoProvider = ({ children }) => {
         localStorage.setItem('todos', JSON.stringify(todos))
     }, [todos])
 
-    const addToDo = (formData) => {
-        console.log('precisamos fazer algo!')
-        setTodos(oldState => {
-            const newTodo = {
-                id: oldState.length + 1,
-                description: formData.get('description'),
-                createdAt: new Date().toISOString(),
-                completed: false
-            }
-            return [...oldState, newTodo]
-        })
+    const upsertTodo = (formData) => {
+        if (selectedTodo) {
+            setTodos(oldState =>
+                oldState.map(item =>
+                    item.id === selectedTodo.id
+                        ? { ...item, description: formData.get('description') }
+                        : item
+                )
+            )
+        } else (
+            setTodos(oldState => {
+                const newTodo = {
+                    id: oldState.length + 1,
+                    description: formData.get('description'),
+                    createdAt: new Date().toISOString(),
+                    completed: false
+                }
+                return [...oldState, newTodo]
+            })
+        )
         closeTodoFormModal()
     }
 
@@ -58,7 +67,7 @@ export const TodoProvider = ({ children }) => {
 
     return <TodoContext value={{
         todos,
-        addToDo,
+        upsertTodo,
         removeTodo,
         toggleItemCompleted,
         openTodoFormModal,

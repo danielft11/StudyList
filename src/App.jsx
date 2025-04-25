@@ -54,6 +54,12 @@ function App() {
           </Heading>
         </Header>
         <ChecklistsWrapper>
+          {/* <ToDoGroup
+            title="Para estudar"
+            todos={todos.filter(t => !t.completed)}
+            onToggleComplete={toggleItemCompleted}
+            onDelete={removeTodo}
+          /> */}
           <SubHeading>Para estudar</SubHeading>
           <ToDoList>
             {todos.filter(t => !t.completed).map(function (t) {

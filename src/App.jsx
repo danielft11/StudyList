@@ -24,11 +24,11 @@ function App() {
         </Header>
         <ChecklistsWrapper>
           <ToDoGroup
-            title="Para estudar"
+            heading="Para estudar"
             todos={todos.filter(t => !t.completed)}
           />
           <ToDoGroup
-            title="Concluído"
+            heading="Concluído"
             todos={todos.filter(t => t.completed)}
           />
           <Footer>

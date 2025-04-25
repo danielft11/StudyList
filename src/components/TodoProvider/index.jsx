@@ -8,6 +8,8 @@ export const TodoProvider = ({ children }) => {
 
     const [todos, setTodos] = useState(savedTodos ? JSON.parse(savedTodos) : [])
 
+    const [selectedTodo, setSelectedTodo] = useState(null)
+
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos))
     }, [todos])
@@ -46,9 +48,25 @@ export const TodoProvider = ({ children }) => {
 
     const closeTodoFormModal = () => {
         setShowDialog(false)
+        setSelectedTodo(null)
     }
 
-    return <TodoContext value={{ todos, addToDo, removeTodo, toggleItemCompleted, openTodoFormModal, closeTodoFormModal, isModalOpen: showDialog }}>
+    const selectTodoForEdit = (todo) => {
+        setSelectedTodo(todo)
+        openTodoFormModal()
+    }
+
+    return <TodoContext value={{
+        todos,
+        addToDo,
+        removeTodo,
+        toggleItemCompleted,
+        openTodoFormModal,
+        closeTodoFormModal,
+        isModalOpen: showDialog,
+        selectTodoForEdit,
+        selectedTodo
+    }}>
         {children}
     </TodoContext>
 }

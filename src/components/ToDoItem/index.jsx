@@ -5,7 +5,7 @@ import { TodoContext } from '../TodoProvider/TodoContext';
 
 export function ToDoItem ({ item }) {
     
-    const { toggleItemCompleted, removeTodo } = use(TodoContext)
+    const { toggleItemCompleted, removeTodo, selectTodoForEdit } = use(TodoContext)
 
     const styles = ['todo-item']
     if (item.completed) {
@@ -30,7 +30,7 @@ export function ToDoItem ({ item }) {
                     <button className="btn" onClick={() => removeTodo(item)}>
                         <IconTrash />
                     </button>
-                    <button className="btn">
+                    <button className="btn" onClick={() => selectTodoForEdit(item)}>
                         <IconPencil />
                     </button>
                 </div>

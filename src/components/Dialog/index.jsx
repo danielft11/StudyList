@@ -6,7 +6,6 @@ export const Dialog = ({ isOpen, onClose, children }) => {
     const refDialog = useRef()
 
     useEffect(() => {
-        console.log("Exibir modal?", isOpen)
         if (isOpen) {
             refDialog.current.showModal();            
         } else {

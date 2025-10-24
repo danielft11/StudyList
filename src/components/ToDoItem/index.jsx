@@ -3,9 +3,9 @@ import { IconPencil, IconTrash } from "../icons";
 import { use } from 'react';
 import { TodoContext } from '../TodoProvider/TodoContext';
 
-export function ToDoItem ({ item }) {
-    
-    const { toggleItemCompleted, removeTodo, selectTodoForEdit } = use(TodoContext)
+export function ToDoItem({ item }) {
+
+    const { toggleToDoCompleted, removeToDo, openFormTodoDialog } = use(TodoContext)
 
     const styles = ['todo-item']
     if (item.completed) {
@@ -18,19 +18,22 @@ export function ToDoItem ({ item }) {
                 {new Date(item.createdAt).toLocaleDateString('pt-BR')}
             </p>
             <div className="details">
-                <input type="checkbox" 
-                    className="checkbox" 
-                    defaultChecked={item.completed} 
-                    onClick={() => toggleItemCompleted(item)}
+                <input type="checkbox"
+                    className="checkbox"
+                    defaultChecked={item.completed}
+                    onClick={() => toggleToDoCompleted(item)}
                 />
                 <p className="description">
                     {item.description}
                 </p>
                 <div className="actions">
-                    <button className="btn" onClick={() => removeTodo(item)}>
+                    <button className="btn" onClick={() => removeToDo(item)}>
                         <IconTrash />
                     </button>
-                    <button className="btn" onClick={() => selectTodoForEdit(item)}>
+                    <button
+                        className="btn"
+                        onClick={() => openFormTodoDialog(item)}
+                    >
                         <IconPencil />
                     </button>
                 </div>

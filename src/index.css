@@ -1,5 +1,5 @@
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; /* Inclui padding e border na largura e altura totais dos elementos */
 }
 
 body {
@@ -11,3 +11,4 @@ body {
   background-position: top center;
   background-size: auto;
 }
+

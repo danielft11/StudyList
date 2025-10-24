@@ -1,19 +1,19 @@
 ![](thumbnail.png)
 
-# App de Checklist de Estudos
+# StudyList - App de Checklist de Estudos
 
-Um projeto prático desenvolvido passo a passo para quem já tem o básico de ReactJS e quer evoluir para construir aplicações mais organizadas, escaláveis e com experiência moderna. Ao longo do curso, criamos um app de checklist para organizar estudos, tarefas e o que mais precisar.
+O **StudyList** é um projeto de gerenciamento de lista de estudos, criado com o propósito de estudar os principais hooks do React como: useRef, useEffect, useState e outros conceitos como componentização, Prop-Drilling, Use Context API, entre outros. Ele foi desenvolvido durante minha realização do curso **React: utilizando hooks para gerenciador estados** da **Alura**.
 
 ## 🔨 Funcionalidades do projeto
 
-* Adição, edição e exclusão de tarefas
+* CRUD completo de tarefas: Adição, edição e exclusão de tarefas.
 * Organização das tarefas em "Para estudar" e "Concluído"
-* Marcação de tarefas como concluídas
+* Marcação de tarefas como concluídas.
 * Feedback visual para lista vazia (empty state)
 * Modal para adicionar/editar tarefas
 * Lista animada de tarefas
 
-![](screen-capture.png)
+![Tela StudyList](image-1.png)
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
@@ -27,6 +27,10 @@ O desenvolvimento do projeto aborda as seguintes técnicas e tecnologias:
 * **Persistência local com localStorage**: Salva as tarefas mesmo fechando o app
 * **Ícones SVG personalizados**
 * **Boas práticas de organização de código**
+* **React (versão utilizada: 19.1.1)**  
+* **Vite para build e desenvolvimento rápido**  
+* **CSS Modules para encapsular estilos por componente**  
+* **JavaScript**   
 
 ## 🛠️ Como rodar o projeto
 
@@ -47,12 +51,4 @@ npm run dev
 
 4. Acesse no navegador: [http://localhost:5173](http://localhost:5173) (Vite).
 
-## 📚 Mais informações do curso
 
-Curtiu o projeto e quer aprender na prática? O passo a passo completo faz parte do segundo ccurso da carreira React da Alura, com foco em experiência real de desenvolvimento, boas práticas e refatoração progressiva.
-
-Se quiser experimentar, explore o código e customize o checklist do seu jeito!
-
----
-
-Vida longa e próspera 🚀

@@ -1,81 +1,95 @@
+import { TodoContext } from "./TodoContext";
 import { useEffect, useState } from "react"
-import { TodoContext } from "./TodoContext"
 
-export const TodoProvider = ({ children }) => {
+export function TodoProvider({ children }) {
 
-    const savedTodos = localStorage.getItem('todos')
+    const TODOS = 'toDos'
+
+    const savedToDos = localStorage.getItem(TODOS)
+
+    const [toDos, setToDos] = useState(savedToDos ? JSON.parse(savedToDos) : [])
     const [showDialog, setShowDialog] = useState(false)
+    const [selectedTodo, setSelectedTodo] = useState()
 
-    const [todos, setTodos] = useState(savedTodos ? JSON.parse(savedTodos) : [])
-
-    const [selectedTodo, setSelectedTodo] = useState(null)
-
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos))
-    }, [todos])
-
-    const upsertTodo = (formData) => {
-        if (selectedTodo) {
-            setTodos(oldState =>
-                oldState.map(item =>
-                    item.id === selectedTodo.id
-                        ? { ...item, description: formData.get('description') }
-                        : item
-                )
-            )
-        } else (
-            setTodos(oldState => {
-                const newTodo = {
-                    id: oldState.length + 1,
-                    description: formData.get('description'),
-                    createdAt: new Date().toISOString(),
-                    completed: false
-                }
-                return [...oldState, newTodo]
-            })
-        )
-        closeTodoFormModal()
+    const openFormTodoDialog = (todo) => { 
+        if (todo) {
+            setSelectedTodo(todo)
+        }
+        setShowDialog(true) 
     }
 
-    const removeTodo = (todo) => {
-        setTodos(oldState => oldState.filter(t => t.id != todo.id))
-    }
-
-    const toggleItemCompleted = (todo) => {
-        setTodos(oldState =>
-            oldState.map(item =>
-                item.id === todo.id
-                    ? { ...item, completed: !item.completed }
-                    : item
-            )
-        )
-    }
-
-    const openTodoFormModal = () => {
-        setShowDialog(true)
-    }
-
-    const closeTodoFormModal = () => {
+    const closeFormTodoDialog = () => {
         setShowDialog(false)
         setSelectedTodo(null)
     }
 
-    const selectTodoForEdit = (todo) => {
-        setSelectedTodo(todo)
-        openTodoFormModal()
+    useEffect(() => { // Sempre que o estado toDos mudar, o useEffect será executado fazendo com que o novo item seja salvo no localStorage.
+        localStorage.setItem(TODOS, JSON.stringify(toDos))
+    }, [toDos])
+
+    const addToDo = (formData) => {
+        // prevState poderia ter qualquer nome, é só uma convenção.   
+        // O que faz com que ele pegue o estado anterior é o fato de ser uma função passada para o setToDos.
+        const description = formData.get('description')
+        setToDos(prevState => {
+            const toDo = {
+                id: prevState.length + 1,
+                description: description,
+                completed: false,
+                createdAt: new Date().toISOString()
+            }
+            return [...prevState, toDo]
+        })
     }
 
-    return <TodoContext value={{
-        todos,
-        upsertTodo,
-        removeTodo,
-        toggleItemCompleted,
-        openTodoFormModal,
-        closeTodoFormModal,
-        isModalOpen: showDialog,
-        selectTodoForEdit,
-        selectedTodo
-    }}>
-        {children}
-    </TodoContext>
+    const toggleToDoCompleted = (todo) => {
+        setToDos(prevState => {
+            return prevState.map(t => {
+                if (t.id == todo.id) {
+                    return {
+                        ...t,
+                        completed: !t.completed // altera o valor de completed do todo recebido por parâmetro
+                    }
+                }
+                return t
+            })
+        })
+    }
+
+    const removeToDo = (todo) => {
+        setToDos(prevState => {
+            return prevState
+                .filter(t => t.id != todo.id) // Filtra todos os toDos que não são o toDo recebido por parâmetro removendo ele da lista
+        })
+    }
+
+    const editToDo = (formData) => {
+        setToDos(prevState => {
+            return prevState.map(t => {
+                if (t.id == selectedTodo.id) {  
+                    return {
+                        ...t,
+                        description: formData.get('description')
+                    }
+                }
+                return t
+            })
+        })
+    }
+
+    return (
+        <TodoContext value={{
+            toDos,
+            addToDo,
+            toggleToDoCompleted,
+            removeToDo,
+            showDialog,
+            openFormTodoDialog,
+            closeFormTodoDialog,
+            selectedTodo,
+            editToDo
+        }}>
+            {children}
+        </TodoContext>
+    )
 }

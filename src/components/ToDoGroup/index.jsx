@@ -2,13 +2,13 @@ import { SubHeading } from "../SubHeading"
 import { ToDoItem } from "../ToDoItem"
 import { ToDoList } from "../ToDoList"
 
-const ToDoGroup = ({ todos, heading }) => {
+const ToDoGroup = ({ items, heading }) => {
 
     return (
         <>
             <SubHeading>{heading}</SubHeading>
             <ToDoList>
-                {todos.map(function (t) {
+                {items.map(function (t) {
                     return <ToDoItem
                         key={t.id}
                         item={t}

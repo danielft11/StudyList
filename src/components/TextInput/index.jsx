@@ -1,8 +1,5 @@
-import './input.style.css'
+import './text-input.style.css';
 
-const TextInput = (props) => {
-
-    return <input {...props} className="input" />
+export function TextInput(props) {
+    return <input {...props} className="text-input" />; // Spread operator "{...props}" para passar todas as props recebidas para o input
 }
-
-export default TextInput

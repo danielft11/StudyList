@@ -2,7 +2,7 @@
 
 O **StudyList** é um projeto de gerenciamento de lista de estudos, criado com o propósito de estudar os principais hooks do React como: useRef, useEffect, useState e outros conceitos como componentização, Prop-Drilling, Use Context API, entre outros. Ele foi desenvolvido durante minha realização do curso **React: utilizando hooks para gerenciador estados** da **Alura**.
 
-## 🌐 O projeto pode ser visto em https://my-study-list-dusky.vercel.app/
+🌐 O projeto pode ser visto em https://my-study-list-dusky.vercel.app/
 
 ## 🔨 Funcionalidades do projeto
 
